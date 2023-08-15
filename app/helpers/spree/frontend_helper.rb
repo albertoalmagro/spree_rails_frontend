@@ -177,15 +177,16 @@ module Spree
                   end
 
       image_style = image&.style(:plp)
-
-      lazy_image(
+      image_attrs = {
         src: image_url,
         srcset: carousel_image_source_set(image),
         alt: product.name,
-        width: image_style&.dig(:width) || 278,
-        height: image_style&.dig(:height) || 371,
+        width: image_style&.dig(:width),
+        height: image_style&.dig(:height),
         class: "product-component-image d-block mw-100 #{image_class}"
-      )
+        }.compact
+
+      lazy_image(image_attrs)
     end
 
     def lazy_image(src:, alt:, width:, height:, srcset: '', **options)
