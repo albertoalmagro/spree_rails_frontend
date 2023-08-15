@@ -186,7 +186,7 @@ module Spree
         class: "product-component-image d-block mw-100 #{image_class}"
         }.compact
 
-      lazy_image(image_attrs)
+      lazy_image(**image_attrs)
     end
 
     def lazy_image(src:, alt:, width:, height:, srcset: '', **options)
