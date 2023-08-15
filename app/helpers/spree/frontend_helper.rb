@@ -170,13 +170,13 @@ module Spree
     def plp_and_carousel_image(product, image_class = '')
       image = default_image_for_product_or_variant(product)
 
+      image_style = image&.style(:plp)
       image_url = if image.present?
-                    main_app.cdn_image_url(image.url('plp'))
+                    main_app.cdn_image_url(image_style(:url) || image.url('plp'))
                   else
                     asset_path('noimage/plp.svg')
                   end
 
-      image_style = image&.style(:plp)
       image_attrs = {
         src: image_url,
         srcset: carousel_image_source_set(image),
