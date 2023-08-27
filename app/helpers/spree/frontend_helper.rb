@@ -24,9 +24,10 @@ module Spree
                      end
 
       path = spree.respond_to?(:root_path) ? spree.root_path : main_app.root_path
+      image_options = { alt: current_store.name, title: current_store.name, width: options[:width], height: options[:height] }.compact
 
       link_to path, 'aria-label': current_store.name, method: options[:method] do
-        image_tag image_path, alt: current_store.name, title: current_store.name
+        image_tag image_path, **image_options
       end
     end
 
