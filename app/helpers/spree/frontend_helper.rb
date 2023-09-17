@@ -43,6 +43,7 @@ module Spree
 
       if taxon
         ancestors = taxon.ancestors.where.not(parent_id: nil)
+        ancestors.prepend taxon.parent if taxon.parent
 
         # breadcrumbs for ancestor taxons
         crumbs << ancestors.each_with_index.map do |ancestor, index|
