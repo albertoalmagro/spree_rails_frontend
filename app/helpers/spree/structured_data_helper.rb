@@ -23,6 +23,7 @@ module Spree
           image: structured_images(product),
           description: product.description,
           sku: structured_sku(product),
+          google_product_category: structured_google_product_category(product),
           offers: {
             '@type': 'Offer',
             price: product.default_variant.price_in(current_currency).amount,
@@ -31,7 +32,7 @@ module Spree
             url: spree.product_url(product),
             availabilityEnds: product.discontinue_on ? product.discontinue_on.strftime('%F') : ''
           }
-        }
+        }.compact
       end
     end
 
@@ -45,6 +46,10 @@ module Spree
       return '' unless image
 
       main_app.rails_blob_url(image.attachment)
+    end
+
+    def structured_google_product_category(product)
+      product.product_properties.find_by(property: product.properties.find_by(name: 'google_product_category'))&.value
     end
   end
 end
